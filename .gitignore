@@ -1,0 +1,11 @@
+# 받은 DOM 데이터 (step_으로 시작하는 html 파일무시)
+step_*.html
+# 상품 JSON 추출 (goods_으로 시작하는 파일 무시)
+goods_*.json
+# json 산출물 (products_으로 시작하는 json 파일무시)
+products_*.json
+# html 산출물 (products_으로 시작하는 html 파일무시)
+products_*.html
+parsed/step_*/
+
+/get/
