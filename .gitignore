@@ -8,4 +8,5 @@ products_*.json
 products_*.html
 parsed/step_*/
 
-/get/
+# get/ 아래 모든 파일
+get/*
