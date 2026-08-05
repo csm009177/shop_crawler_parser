@@ -92,7 +92,7 @@ class TemuProductParser {
           .join(", ") || "";
 
       // Build product link using LinkMaker
-      let link = LinkMaker.makeProductUrl(d, 'original');
+      let link = LinkMaker.makeProductUrl(d, 'goods');
 
       return {
         index: idx + 1,
