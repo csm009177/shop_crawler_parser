@@ -92,7 +92,12 @@ class TemuProductParser {
           .join(", ") || "";
 
       // Build product link using LinkMaker
-      let link = LinkMaker.makeProductUrl(d, 'goods');
+      let link = LinkMaker.makeProductUrl(d, "original");
+      // 설명서 : 두번째 인자를 변경하여 URL제조방식 변경
+      // 'original' - 원본 URL (tracking 파라미터 포함)
+      // 'clean' - 파라미터 제거된 깔끔한 URL
+      // 'search' - 상품명 검색 URL
+      // 'goods' - goodsId 기반 SEO URL
 
       return {
         index: idx + 1,
