@@ -624,7 +624,7 @@ if (require.main === module) {
     // 입력 파일 경로 결정: get/ 디렉토리 우선 검색
     let inputFile = process.argv[2];
     
-    const getDir = path.join(__dirname, 'get');
+    const getDir = path.join(__dirname, 'get/dom/');
     
     // 인자가 없으면 get/ 디렉토리의 모든 HTML 파일 처리
     if (!inputFile) {

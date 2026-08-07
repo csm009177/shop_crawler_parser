@@ -10,3 +10,4 @@ parsed/step_*/
 
 # get/ 아래 모든 파일
 get/*
+res/*
