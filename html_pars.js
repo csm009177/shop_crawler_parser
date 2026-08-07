@@ -66,7 +66,8 @@ class TemuProductParser {
      */
     parseProducts(goodsList) {
         this.products = goodsList.map((item, idx) => {
-            const d = item.data;
+            // Handle both data structures: item.data.* and item.*
+            const d = item.data || item;
             
             // Extract keywords from goodsTags
             const keywords = d.goodsTags?.map(t => t.header?.text).filter(Boolean).join(', ') || '';
@@ -77,20 +78,32 @@ class TemuProductParser {
                 link = 'https://www.temu.com' + d.seoLinkUrl;
             } else if (d.linkUrl) {
                 link = 'https://www.temu.com/' + d.linkUrl;
+            } else if (item.linkUrl) {
+                link = 'https://www.temu.com/' + item.linkUrl;
             }
+            
+            // Get name from various possible fields
+            const name = d.title || d.pageAlt || d.goodsName || item.goodsName || '';
+            
+            // Get image URL
+            const image = d.thumbUrl || d.hdThumbUrl || item.thumbUrl || item.hdThumbUrl || '';
+            
+            // Get price info
+            const priceInfo = d.priceInfo || item.priceInfo;
+            const price = priceInfo?.priceStr || priceInfo?.price || '';
             
             return {
                 index: idx + 1,
-                image: d.thumbUrl || '',
-                name: d.title || d.pageAlt || '',
-                price: d.priceInfo?.priceStr || '',
-                salesVolume: d.salesNum || '',
-                salesTip: d.salesTip || '',
-                rating: d.comment?.goodsScore || '',
-                reviewCount: d.comment?.commentNumTips || '',
+                image: image,
+                name: name,
+                price: price,
+                salesVolume: d.salesNum || item.salesNum || '',
+                salesTip: d.salesTip || item.salesTip || '',
+                rating: d.comment?.goodsScore || item.comment?.goodsScore || '',
+                reviewCount: d.comment?.commentNumTips || item.comment?.commentNumTips || '',
                 keywords: keywords,
                 link: link,
-                goodsId: d.goodsId
+                goodsId: d.goodsId || item.goodsId
             };
         });
         
@@ -684,7 +697,7 @@ function processFile(inputFile) {
     // Extract input filename without extension for output directory and file naming
     const inputFileName = path.basename(inputFile, path.extname(inputFile));
     const baseDir = path.dirname(inputFile);
-    const outputDir = path.join(baseDir, '..', 'parsed', inputFileName);
+    const outputDir = path.join(baseDir, '..', '..', 'res', 'html_parsed', inputFileName);
     
     // Output files named after input file
     const outputHtml = path.join(outputDir, `${inputFileName}_table.html`);
